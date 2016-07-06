@@ -1,0 +1,14 @@
+Package: autoGLM
+Type: Package
+Title: Automated fitting, model selection, and documentation functions for GLM modelling of binary response variables.
+Version: 1.0.0
+Author: Bo Pieter Johannes Andree
+Maintainer: <b.p.j.andree@vu.nl>
+Description: Methods and tools for automation of binary response GLM's. Supports linear models with identity, probit and logit link. The package is written with binomial land-use modelling using large data sets in mind, but the methods and tools stretch out to other research cases. The main function is autoGLM, which wraps around most of the other functions contained in the package. However, some general functions are included as well such as a more elaborated function for package loading, an out of memory version to lapply, memory-threshold garbage collection, sample size reduction routines, variable selection routines, and user friendly methods for logit estimation through GMM. 
+Depends: R (>= 3.2.1)
+URL: https://github.com/BPJandree/AutoGLM
+BugReports: https://github.com/BPJandree/AutoGLM
+License: MIT
+ByteCompile: TRUE
+LazyData: TRUE
+RoxygenNote: 5.0.1
