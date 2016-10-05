@@ -4,47 +4,51 @@
 #    / /   / / / // / \__ \/ /| |    / /   / /| | / /    / // __  / /_/ / /| | / /  / // / / /  |/ /   # 
 #   / /___/ /_/ // / ___/ / ___ |   / /___/ ___ |/ /____/ // /_/ / _, _/ ___ |/ / _/ // /_/ / /|  /    # 
 #  /_____/\____/___//____/_/  |_|   \____/_/  |_/_____/___/_____/_/ |_/_/  |_/_/ /___/\____/_/ |_/     # 
-#  																								 	   #	
-#                 ____           ___              __                  ___   ____ ________          	   #
-#                / __ )____     /   |  ____  ____/ /_______  ___     |__ \ / __ <  / ___/			   #
-#               / __  / __ \   / /| | / __ \/ __  / ___/ _ \/ _ \    __/ // / / / / __ \ 			   #
-#              / /_/ / /_/ /  / ___ |/ / / / /_/ / /  /  __/  __/   / __// /_/ / / /_/ / 			   #
-#             /_____/\____/  /_/  |_/_/ /_/\__,_/_/   \___/\___/   /____/\____/_/\____/  			   #
-# 																									   #
-# Example code for package AutoBinom  																   #
-# @Bo Andree																						   #
-# @ b.p.j.andree@vu.nl 																				   #
-# All the function are in the file "AutoBinom.R" 													   #
+#  												       #											 	   #	
+#                 ____           ___              __                  ___   ____ ________              #
+#                / __ )____     /   |  ____  ____/ /_______  ___     |__ \ / __ <  / ___/	       #
+#               / __  / __ \   / /| | / __ \/ __  / ___/ _ \/ _ \    __/ // / / / / __ \ 	       #
+#              / /_/ / /_/ /  / ___ |/ / / / /_/ / /  /  __/  __/   / __// /_/ / / /_/ / 	       #
+#             /_____/\____/  /_/  |_/_/ /_/\__,_/_/   \___/\___/   /____/\____/_/\____/  	       #
+# 												       #													   #
+# Example code for package AutoBinom  								       #								   #
+# @Bo Andree											       #										   #
+# @ b.p.j.andree@vu.nl 										       #										   #
+# All the function are in the file "autoGLM.r"	 						       #							   #
 ########################################################################################################                                                                                                   
                                                                                                 
-# load the library:
+# On your first run, install the package from github.
 library(devtools)
 install_github("BPJandree/AutoGLM")
+# Downloading might take a while as the package contains sample data.
 
+# Load the library:
 library(autoGLM)
-# if you want to work with a large dataset, I recommend to use fread:
+# if you want to work with a large dataset, I recommend to use fread from the data.table package:
 pkgTest("data.table")
 
-# specify the path to the DCSV that includes all observations. LU should be first colummn.
+# Specify the path to the CSV data that includes all observations. Land Use should be the first colummn.
 csvdatapath = "C:\\Users\\"
-# speficy the path to the reclass table with CORINGE to LUISA codes. 
+# Speficy the path to the reclass table with CORINGE to LUISA codes. 
 corinereclasstablepath = "C:\\Users\\"
 # ITdata <-data.frame(fread("csvdatapath"))
 # corinetable<-data.frame(fread("corinereclasstablepath"))
 
-# its convenient to load data to memory first, but you can also point autoGLM to a path. 
-# It is memory efficient to pass the filepath to the function, as in this case there is no unnecesary duplicate stored in the RAM
+# It iss convenient to load data to memory first, but you can also point autoGLM to a path. 
+# It is memory efficient to pass the filepath to the function, as in this case there is no unnecesary duplicate stored in the RAM,
 # but if you calibrate for multiple land use classes, passing a loaded object can be slightly faster as it saves on reading time.
 
-#specify the outputpath of the weightsfile. names of the weights default to the column names of the data. if these are not the "w__" names, you need to manually edit the outputted file.
+# Specify the outputpath for the weightsfile. Names of the weights default to the column names of the data. If these are not the "w__" names, you need to manually edit the outputted file.
 weightsfilepath= "C:\\Users\\"
-#specify the country for which you generate a weighs file.
+# Specify the country for which you generate a weights file.
 countryname = "IT"
-# outputted weightsfile will start with the number of the land use supplied. (e.g, "1_weights_binomial"). manual edit of the name is required.
+# The outputted weightsfile will start with the number of the land use supplied. (e.g, "1_weights_binomial"). Manual edit of the name is required.
 
-# the programm is robust to bad variables, but it can't know if you supply endogenous variables. so think about what you feed into the model.
+# The programm is robust to bad variables, but it can't know if you supply endogenous variables. 
+# Always think about what you feed into a model.
 
-# in this case we can work with the data supplied in the package
+# As an example case, we can work with the sample data supplied in the package.
+# Load the data
 data(ITdata)
 data(corinetable)
 
@@ -52,14 +56,18 @@ data(corinetable)
 describe(ITdata)
 
 # RUN the calibrateBinom command:
-
+# By default, the outputpath is you working directory. 
+# If no default set in your system32 settings, the command will not work unless you supply an outputpath. 
+# you can run wd() to check this.
+##### KNOWN BUG: In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used
+##### You can ignore this, I will fix this.
 results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=wd(), modelname="IT",
  							tracelevel=1, actions=c("write", "print", "log", "return"), NAval="default", model="logit", preselect="lm",
  								method="opt.ic", KLIC="AICc", accuracytolerance=0.01, confidence.alternative=0.85, 
  									use.share=0.5, maxsampleruns=50, memorymanagement=TRUE)
 
-# you can also optimize the model by piecewise elimination of variables using t tests (not recommended), this will result in a parsimonious model. 
-#It can be usefull however to evaluate the results to see how insignificant variables contribute to predictive power.
+# You can also optimize the model by piecewise elimination of variables using t tests (not recommended), this will result in a parsimonious model. 
+# It can be useful however to evaluate the results to see how insignificant variables contribute to predictive power.
 
 results2 <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=weightsfilepath, modelname=countryname,
 							tracelevel=1, actions=c("print", "return"), NAval="default", model="logit", 
@@ -68,13 +76,12 @@ results2 <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=w
 											maxsampleruns=50, memorymanagement=TRUE)
 
 
-# you can also optimize using hypothesis tests regarding the joint contibution of insignificant variables. Supported: F test, Chisquare and LR.
+# You can also optimize using hypothesis tests regarding the joint contibution of insignificant variables. Supported: F test, Chisquare and LR.
 results3 <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=weightsfilepath, modelname=countryname,
 							tracelevel=1, actions = c("print", "return"), NAval ="default", model="logit", 
 									preselect = "lm", method = "opt.h", crit.t = 1.64, crit.p =.1, test = "LR", KLIC = "AICc", 
 										accuracytolerance =0.01, confidence.alternative =0.90, use.share = 0.5, 
 											maxsampleruns=100, memorymanagement = TRUE)
-
 
 
 # You can also calibrate over multiple classes. When working with large data, I recommend to leave a copy on the hard disk instead of the RAM, so pass on a path tothe files:
@@ -96,6 +103,7 @@ calibration<-autoGLM(data=ITdata, reclasstable=corinetable, class=landusevec, ou
 #########################################################################################################################################################################
 
 pkgTest(c("gmm", "foreign", "sp", "data.table", "compiler", "speedglm"))
+
 ##########################################
 # Generate some data or import some data #
 ##########################################
