@@ -59,7 +59,7 @@ describe(ITdata)
 # By default, the outputpath is you working directory. 
 # If no default set in your system32 settings, the command will not work unless you supply an outputpath. 
 # you can run wd() to check this.
-##### KNOWN BUG: In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used
+##### KNOWN BUG: Warning messages: In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used
 ##### You can ignore this, I will fix this.
 results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=wd(), modelname="IT",
  							tracelevel=1, actions=c("write", "print", "log", "return"), NAval="default", model="logit", preselect="lm",
@@ -84,11 +84,13 @@ results3 <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=w
 											maxsampleruns=100, memorymanagement = TRUE)
 
 
-# You can also calibrate over multiple classes. When working with large data, I recommend to leave a copy on the hard disk instead of the RAM, so pass on a path tothe files:
+# You can also calibrate over multiple classes. When working with large data, I recommend to leave a copy on the hard disk instead of the RAM, so pass on a path to the files:
 
 ITdata<- "C:\\Users"
 landusevec <- c(0,1,2,3,4,5,6,16)
 
+#### The command by default writes all the estimation objects as serialized images to your outputpath. 
+#### Be sure to delete them afterwards if you do not wish to keep them. They can be large in size.
 calibration<-autoGLM(data=ITdata, reclasstable=corinetable, class=landusevec, outputpath=weightsfilepath, modelname=countryname, 
 							tracelevel=1, actions = c("write", "print", "log", "return"), NAval="default", model="logit", preselect = "lm",
 								method = "opt.ic", KLIC="AICc", accuracytolerance = 0.01, confidence.alternative =0.85, 
