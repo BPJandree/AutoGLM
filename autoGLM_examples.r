@@ -27,10 +27,12 @@ library(autoGLM)
 # if you want to work with a large dataset, I recommend to use fread from the data.table package:
 pkgTest("data.table")
 
-# Specify the path to the CSV data that includes all observations. Land Use should be the first colummn.
+# If you want to work with you own data, specify the path to the CSV files that includes all observations. 
+# Land Use should be the first colummn.
 csvdatapath = "C:\\Users\\"
-# Speficy the path to the reclass table with CORINGE to LUISA codes. 
+# Also speficy the path to the reclass table with CORINE to LUISA codes if you wish to use your own reclassification scheme. 
 corinereclasstablepath = "C:\\Users\\"
+# You can load the files with the following dashed out commands:
 # ITdata <-data.frame(fread("csvdatapath"))
 # corinetable<-data.frame(fread("corinereclasstablepath"))
 
