@@ -63,7 +63,7 @@ describe(ITdata)
 # you can run getwd() to check this.
 ##### KNOWN BUG: Warning messages: In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used
 ##### You can ignore this, I will fix this.
-results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=wd(), modelname="IT",
+results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=getwd(), modelname="IT",
  							tracelevel=1, actions=c("write", "print", "log", "return"), NAval="default", model="logit", preselect="lm",
  								method="opt.ic", KLIC="AICc", accuracytolerance=0.01, confidence.alternative=0.85, 
  									use.share=0.5, maxsampleruns=50, memorymanagement=TRUE)
