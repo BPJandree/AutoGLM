@@ -36,7 +36,7 @@ corinereclasstablepath = "C:\\Users\\"
 # ITdata <-data.frame(fread("csvdatapath"))
 # corinetable<-data.frame(fread("corinereclasstablepath"))
 
-# It iss convenient to load data to memory first, but you can also point autoGLM to a path. 
+# It is convenient to load data to memory first, but you can also point autoGLM to a path. 
 # It is memory efficient to pass the filepath to the function, as in this case there is no unnecesary duplicate stored in the RAM,
 # but if you calibrate for multiple land use classes, passing a loaded object can be slightly faster as it saves on reading time.
 
