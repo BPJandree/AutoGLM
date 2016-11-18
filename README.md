@@ -10,6 +10,8 @@ This package is still in alpha, you can contact me if you encounter problems. So
 - Not a bug, but I will edit the data set. The elevation data includes a few observations with negative values. If you normalize the elevation data using the normalize() command, it will effectively remove all the variation in the data and glm models will not work. 
 - Not specifying all actions will result in an error, though everything works properly. I will look in to this, for now I recommend to always use actions=c("write", "print", "log", "return")
 - guessStartVal using gmm is on the todo list, but not has no priority because gmm runs very heavy on large datasets.
+
+
 **Example code:** You can view some example code here [autoGLM_examples.r][examples], or have a look at the [vignette][vignette].
 
 [examples]:https://github.com/BPJandree/AutoGLM/blob/master/autoGLM_examples.r
