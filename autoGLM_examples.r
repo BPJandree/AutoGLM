@@ -60,7 +60,7 @@ describe(ITdata)
 # RUN the calibrateBinom command:
 # By default, the outputpath is you working directory. 
 # If no default set in your system32 settings, the command will not work unless you supply an outputpath. 
-# you can run wd() to check this.
+# you can run getwd() to check this.
 ##### KNOWN BUG: Warning messages: In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used
 ##### You can ignore this, I will fix this.
 results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=wd(), modelname="IT",
