@@ -1,7 +1,7 @@
 # AutoGLM
-This is an R package for automated GLM modelling suitable for large datasets.
+This is an R package for automated GLM modelling suitable for large datasets. Updated version is on it's way.
 
-# Known bugs
+# Known bugs (Will be fixed with next update!)
 This package is still in alpha, you can contact me if you encounter problems. Some bugs are already known.
 
 - Using option "opt.t" in autoGLM() does currently not work. opt.t() command itself is functional. You can also use the opt.t routine in generalizeToSpecific().
