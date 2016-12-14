@@ -4,29 +4,24 @@
 \alias{simulateLogit}
 \title{A function to generate random data from a logit model.}
 \usage{
-simulateLogit(nobs = 2500, nxregs = 10, pars = "default", Ytype = "bin")
+simulateLogit(nobs = 2500, pars = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
 }
 \arguments{
 \item{nobs}{number of observations that the returned dataset should include. Defaults to 2500.}
 
-\item{nxregs}{number of standardized random regressors that the returned dataset should include. The regressors are used in the data generating process according to the supplied parameters. Defaults to 10.}
-
-\item{pars}{A vector of parameters to be used in the data generating process. The length of the vector must correspond to the number of random regessors. Regressors may have a 0 coefficient. Defaults to 0 for all variables.}
-
-\item{Ytype}{Either "bin" to return a binary response variable, or "truncP" to return truncated probabilities between 0 and 1. Defaults to "bin".}
+\item{pars}{A vector of parameters to be used in the data generating process. Regressors may have a 0 coefficient. Defaults to 0 for all variables.}
 }
 \value{
 A simulated dataset from a logistic probability model with nobs observations, a binary response variable, and nxregs regressors ranging from 0 to 100.
 }
 \description{
-This function generates random data simulated from a logit model based on the parameters supplied. The function is a crude implementation suited for testing purposes, not designed with Monte Carlo applications in mind.
-The returned response variable is either binary or truncated probabilites between 0-1.
+This function generates random data simulated from a logit model based on the parameters supplied.
 }
 \examples{
 logitpars <- c(-0.5, 0.4, -0.3, 0.2, -0.1, 0, 0, 0, 0, 0, 0, 0)
-logit_data <- simulateLogit(nobs=2500, nxregs=12, pars=logitpars, Ytype="bin") 
+logit_data <- simulateLogit(nobs=2500, pars=logitpars)
 
-random_binaryResponse_data <- simulateLogit(nobs=500, nxregs=6, pars="default", Ytype="bin") 
+random_binaryResponse_data <- simulateLogit(nobs=500)
 }
 \keyword{data}
 \keyword{generate}

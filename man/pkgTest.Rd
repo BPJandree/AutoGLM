@@ -2,12 +2,12 @@
 % Please edit documentation in R/autoGLM.R
 \name{pkgTest}
 \alias{pkgTest}
-\title{An improved function to load packages.}
+\title{An function to load and install packages.}
 \usage{
 pkgTest(package, silent = FALSE)
 }
 \arguments{
-\item{package}{Package to be loaded. Accepts a vector of packages to load multiple packages.}
+\item{package}{Character string indicating th package to be loaded. Accepts a vector of packages to load multiple packages.}
 
 \item{silent}{Should startup messages printed by the packages be surpressed? Will not surpress warnings or errors. Defaults to FALSE.}
 }
@@ -15,11 +15,11 @@ pkgTest(package, silent = FALSE)
 The messages printed by the loaded package, or a message if the package is not found.
 }
 \description{
-This function checks if a package is installed before loading it, and pulls it from the neares CRAN server if the package is missing.
+This function checks if a package is installed before loading it, and pulls it from the nearest CRAN server if the package is missing.
 }
 \examples{
-verbose_packages <- c("gmm", "foreign", "sp") 
-silent_packages <- c("data.table", "compiler", "speedglm") 
+verbose_packages <- c("gmm", "foreign", "sp")
+silent_packages <- c("data.table", "compiler", "speedglm")
 
 pkgTest(verbose_packages)
 pkgTest(silent_packages)

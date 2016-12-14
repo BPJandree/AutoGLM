@@ -2,7 +2,7 @@
 % Please edit documentation in R/autoGLM.R
 \name{exportWeightsfile}
 \alias{exportWeightsfile}
-\title{A function to export a csv file containing the weights file in a format that can be loaded into geoDMS.}
+\title{A function to export a csv file containing the weights file in a format that can be loaded into geoDMS applications.}
 \usage{
 exportWeightsfile(model, originaldata, modeldata, coefnamelist, outdir,
   modelname, filename)
@@ -30,26 +30,26 @@ This function exports a csv file containing the names of the weights, coefficien
 }
 \examples{
 logitpars <- c(-0.5, 0.4, -0.3, 0.2, -0.1, 0, 0, 0, 0, 0, 0, 0)
-someData <- simulateLogit(nobs=2500, nxregs=12, pars=logitpars) 
+someData <- simulateLogit(nobs=2500, pars=logitpars)
 useData <- someData[,c(1:6)]
-someModel <- glm(formula(useData), family=binomial(link='logit'), data=useData)
+someModel <- logit(UseData)
 
-exportWeightsfile(model = someModel, originaldata = someData, modeldata = useData, 
-				coefnamelist = colnames(someData[-1,]), outdir = "C:\\\\Users\\\\", 
-					modelname = "myfirstglm", filename = "important_result.csv") 
+exportWeightsfile(model = someModel, originaldata = someData, modeldata = useData,
+				coefnamelist = colnames(someData[-1,]), outdir = "C:\\\\Users\\\\",
+					modelname = "ImportantModel", filename = "important_result.csv")
 
-ITdata <- data(ITdata)
-ITsample <- getSamples(data = ITdata, share = 0.05, confidence.alternative=0.90, max.iter =100)
+data(ITdata)
+data(corinetable)
+ITsample <- getSamples(data = ITdata, share = 0.25, confidence.alternative=0.85, max.iter =100)
 sampledIT = ITdata[ITsample,]
-reclIT <- reclassify(sampledIT)
-urbanIT <- MLtoBinomData(reclIT, class=0)
-trainY = urbanIT[,1]
-trainX = urbanIT[,-1]
-bestX <- selectX(trainY, trainX)
-bestlogit <- glm(formula(cbind(trainY,trainX)), family=binomial(link='logit'), data=cbind(trainY,trainX))
-
-exportWeightsfile(model = bestlogit, originaldata = ITdata, modeldata = cbind(trainY,trainX), 
-				coefnamelist = colnames(trainX), outdir = "C:\\\\Users\\\\", 
-					modelname = "IT", filename = "Urban_weights.csv") 
+reclIT <- reclassify(sampledIT,  reclasstable=corinetable)
+trainY <- MLtoBinomData(reclIT[,1], class=0)
+trainX = reclIT[,-1]
+bestX <- selectX(trainY, trainX, share = 0.25, returntype="colnames")
+# total accessibility and domestic accessibility are multicollinear.
+bestlogit <- logit(cbind(trainY,trainX[,bestX]))
+exportWeightsfile(model = bestlogit, originaldata = ITdata, modeldata = cbind(trainY,trainX),
+	coefnamelist = colnames(trainX), outdir = "C:\\\\Users\\\\",
+					modelname = "IT", filename = "Urban_weights.csv")
 }
 

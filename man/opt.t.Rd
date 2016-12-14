@@ -4,7 +4,8 @@
 \alias{opt.t}
 \title{Optimization routine based on step-wise elimenation using t-values.}
 \usage{
-opt.t(model, Y, X, returntype, tracelevel, crit.t, memorymanagement)
+opt.t(model, Y, X, returntype = "model", tracelevel = 0, crit.t = 1.64,
+  memorymanagement = FALSE)
 }
 \arguments{
 \item{model}{The model to be optimized. Supports "lm" for the linear probability model, "logit" for the logistic probability model, and "probit" for the probit model.}
@@ -28,6 +29,9 @@ opt.t(model, Y, X, returntype, tracelevel, crit.t, memorymanagement)
 This function searches
 }
 \examples{
-opt.t(model, Y, X, returntype, tracelevel, crit.t, memorymanagement)
+randomlogit <- simulateLogit(nobs=500, pars = c(0.5, -0.4, -0.3, 0.1, 0.05, 0.025, 0, 0, 0, 0))
+Y=randomlogit[,1]
+X=randomlogit[,-1]
+opt.t(model="lm", Y, X)
 }
 

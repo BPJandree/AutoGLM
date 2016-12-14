@@ -2,7 +2,7 @@
 % Please edit documentation in R/autoGLM.R
 \name{selectX}
 \alias{selectX}
-\title{A function to select from an entire set of exogenous regressors, those regressors that minimize Kullback-Leibler divergence in the supplied model. The underlying function uses a "warm start" algorithm initialized by guessStartval, in a fashion similar to the method of sieves. If you plan to use a Lasso estimator on large data, you might consider using this function to determine the zero parameters with option method = "lm", and continue with a Ridge estimator for cumputational reasons.}
+\title{A main function of the package for variable selection based on moidel type and a generalize to specific approach.}
 \usage{
 selectX(Y, X, model = "lm", returntype = "data", method = "opt.ic",
   KLIC = "AICc", crit.t = 1.64, crit.p = 0.05, test = "LR",
@@ -18,7 +18,7 @@ selectX(Y, X, model = "lm", returntype = "data", method = "opt.ic",
 
 \item{returntype}{Either "data" to return a dataset, or colnames" to only return the collumn names of the variables that are used in the optimal model. "data" by default.}
 
-\item{method}{The optimization strategy. Either "opt.ic" to optimize using information criteria, "opt.t" for step-wise elimination of insignificant values 
+\item{method}{The optimization strategy. Either "opt.ic" to optimize using information criteria, "opt.t" for step-wise elimination of insignificant values
 (statistically speaking not a sound procedure, but it will provide a parsimonious model that can be usefull as a benchmark), or "opt.h" to optimize by classical hypothesis tests.
 defaults to "opt.ic".}
 
@@ -28,7 +28,7 @@ defaults to "opt.ic".}
 
 \item{crit.p}{the p-value used by method "opt.h" in the hypothesis tests. Defaults to 0.05.}
 
-\item{test}{The hypothesis test used by "opt.h". Defaults to "LR" for the Likelihood Ratio test. Other options are "F", for an F test for joint significance of insignificant parameters, or "Chisq" for a wald test against the Chi squared distribution. 
+\item{test}{The hypothesis test used by "opt.h". Defaults to "LR" for the Likelihood Ratio test. Other options are "F", for an F test for joint significance of insignificant parameters, or "Chisq" for a wald test against the Chi squared distribution.
 Recommended setting is either "LR" as it is less dependent on correct estimation of the standard errors. Keep in mind that "Chisq" is an asymptotic test, anf "F" is more appropiate for small sample tests. Howver "Chisq" holds under milder conditions and should be used if no small sample theory is available for the model.}
 
 \item{share}{between 0-1, specifying the amount of data that should be passed on to the optimization strategies. Defaults to 0.75, to improve speed. Uses getSamples() to maintain first and second moments of the data.}
@@ -53,12 +53,13 @@ data(ITdata)
 data(corinetable)
 #Grab a sample (optional).
 sample <- ITdata[getSamples(ITdata, share =.05),]
-# Reclassify 
+# Reclassify
 catITdata <- reclassify(sample, reclasstable = corinetable)
 # create a binary response dataset.
 Y <- MLtoBinomData(catITdata[,1], class =1)
 X <- catITdata[,-1]
 selectX(Y, X, model ="lm", returntype = "colnames", method = "opt.t")
 bestX <- selectX(Y, X)
+describe(bestX)
 }
 

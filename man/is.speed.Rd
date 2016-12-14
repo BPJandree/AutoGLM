@@ -10,7 +10,7 @@ is.speed(model)
 \item{model}{a modelobject.}
 }
 \value{
-Boolean indicating whether supplied object is of class speedglm.
+Boolean indicating whether supplied object is of class speedglm from package speedglm.
 }
 \description{
 Miscelaneous function used in main routines.

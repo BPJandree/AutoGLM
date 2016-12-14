@@ -16,7 +16,7 @@ iapply(X, FUN, writedisk = FALSE, outdir = "default", name = "default",
 
 \item{outdir}{output directory where .RDS files should be written.}
 
-\item{name}{When writedisk = TRUE, output is saved with this name followed by the iteration. By default, uses getCall(), thus RDS files are "iapply" followed by the number of th element. However storing iapply in another object, will change the output name.}
+\item{name}{When writedisk = TRUE, output is saved with this name followed by the iteration. By default, uses getCall2(), thus RDS files are "iapply" followed by the number of th element. However storing iapply in another object, will change the output name.}
 
 \item{compress}{a logical specifying whether outputted RDS files use "gzip" compress, or one of "gzip", "bzip2" or "xz" to indicate the type of compress to be used. Defaults to no compress.
 You can later restore the objects using readRDS().}
@@ -27,7 +27,7 @@ the output of FUN(X[X[length(X)]], plus any prints, messages, warnings, errors t
 \description{
 Similar to well-know lapply, but returns only the last result as an object. Very usefull when working with big datasets. If the object to be returned is large in memory, say it contains copies of a large dataset,
 iapply iteratively applies a function but returns only the last output of the function application. This is useful if the function prints diagnostics to screen or saves results in a log file,
-but you would like to evaluate the last object to understand the output better. Additionally, the function allows you to write all the output to disk using a Serialization Interface for Single Objects. 
+but you would like to evaluate the last object to understand the output better. Additionally, the function allows you to write all the output to disk using a Serialization Interface for Single Objects.
 This allows you to restore any output to an object, possibly with a different name.
 }
 \examples{
@@ -37,17 +37,17 @@ return(x)
 }
 x=1:10
 # this will print all elements of x, finaloutput will only contain the last element of x.
-finaloutput <- iapply (x, f) 
+finaloutput <- iapply (x, f)
 print(finaloutput)
 
-# this will print all elements of x, create 10 RDS files that you can use to restore f(x), 
+# this will print all elements of x, create 10 RDS files that you can use to restore f(x),
 # finaloutput will contain the last element of x.
 finaloutput <- iapply (x, f, writedisk = TRUE, outdir = "C:\\\\Users\\\\")
 print(finaloutput)
 
 # this will do the same, but stores names as "binomials1", "binomials2" etc.
 binomials <- iapply
-finaloutput <- binomials (x, f, writedisk = TRUE, outdir = "C:\\\\Users\\\\") 
+finaloutput <- binomials (x, f, writedisk = TRUE, outdir = "C:\\\\Users\\\\")
 print(finaloutput)
 }
 

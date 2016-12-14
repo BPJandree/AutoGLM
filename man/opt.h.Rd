@@ -4,7 +4,8 @@
 \alias{opt.h}
 \title{Optimization routine based on hypothesis testing.}
 \usage{
-opt.h(model, Y, X, returntype, tracelevel, crit.p, test, memorymanagement)
+opt.h(model, Y, X, returntype = "model", tracelevel = 0, crit.p = 0.1,
+  test = "LR", method = "joint", memorymanagement = FALSE)
 }
 \arguments{
 \item{model}{The model to be optimized. Supports "lm" for the linear probability model, "logit" for the logistic probability model, and "probit" for the probit model.}
@@ -27,6 +28,19 @@ opt.h(model, Y, X, returntype, tracelevel, crit.p, test, memorymanagement)
 "model", "data", or "colnames", to be specified in returnype.
 }
 \description{
-This function searches
+This function uses hypothesis tests to optimize a glm. If method is "joint", a joint significance tests of the full model against the model with only paramaeters that are significant in the full model is performed. If the insignificant variables are jointly significant, the alternative specification is returned.
+If the insignificant variables are jointly insignificant, the parameter with the largest p-value is dropped, and the test is repeated.
+If method is "single", the hypothesis tests are made between the full model and a model with one variable less. The tests are repeated till removing variables is not supported by the specified test.
+Single wald tests are equal to t-tests, F-tests are finite sample tests. Note that optimizing by single parameter tests is restrictive, for a discussion look up bonferonni corrections. Only the joint tests are available through autoGLM, for single tests opt.t is available.
+Though both methods use hypothesis testing a a decision criterion, the returned models may differ. This is a common result of hypothesis tests, and is one argument why
+model selection may be based on information criteria. for a discussion see for example "Comments on testing economic theories and the use of model selection criteria" by Granger, King and White (1995).
+}
+\examples{
+
+pars = c(0.5, -0.4, -0.3, 0.1, 0.05, 0.025, 0, 0, 0, 0,0,0,0)
+randomlogit <- simulateLogit(nobs=8000, pars = pars)
+Y=randomlogit[,1]
+X=randomlogit[,-1]
+hmod <- opt.h(model="logit", Y, X, returntype="model", tracelevel=1, crit.p=0.05, test="LR")
 }
 

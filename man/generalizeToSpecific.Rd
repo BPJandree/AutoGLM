@@ -2,10 +2,10 @@
 % Please edit documentation in R/autoGLM.R
 \name{generalizeToSpecific}
 \alias{generalizeToSpecific}
-\title{A function to select from an entire set of exogenous regressors, those regressors that minimize Kullback-Leibler divergence in the supplied model. The underlying function uses a "warm start" algorithm initialized by guessStartval, in a fashion similar to the method of sieves. If you plan to use a Lasso estimator on large data, you might consider using this function to determine the zero parameters with option method = "lm", and continue with a Ridge estimator for cumputational reasons.}
+\title{A main function of the package to apply generalize to specific to generalized linear models.}
 \usage{
 generalizeToSpecific(model = "lm", Y, X, method = "opt.ic", KLIC = "AICc",
-  crit.t = 1.64, crit.p = 0.05, test = "LR", tracelevel = 1,
+  crit.t = 1.64, crit.p = 0.1, test = "LR", tracelevel = 1,
   memorymanagement = TRUE)
 }
 \arguments{
@@ -15,7 +15,7 @@ generalizeToSpecific(model = "lm", Y, X, method = "opt.ic", KLIC = "AICc",
 
 \item{X}{A dataframe of multiple exogenous regressors.}
 
-\item{method}{The optimization strategy. Either "opt.ic" to optimize using information criteria, "opt.t" for step-wise elimination of insignificant values 
+\item{method}{The optimization strategy. Either "opt.ic" to optimize using information criteria, "opt.t" for step-wise elimination of insignificant values
 (statistically speaking not a sound procedure, but it will provide a parsimonious model that can be usefull as a benchmark), or "opt.h" to optimize by classical hypothesis tests.
 defaults to "opt.ic".}
 
@@ -25,7 +25,7 @@ defaults to "opt.ic".}
 
 \item{crit.p}{the p-value used by method "opt.h" in the hypothesis tests. Defaults to 0.05.}
 
-\item{test}{The hypothesis test used by "opt.h". Defaults to "LR" for the Likelihood Ratio test. Other options are "F", for an F test for joint significance of insignificant parameters, or "Chisq" for a wald test against the Chi squared distribution. 
+\item{test}{The hypothesis test used by "opt.h". Defaults to "LR" for the Likelihood Ratio test. Other options are "F", for an F test for joint significance of insignificant parameters, or "Chisq" for a wald test against the Chi squared distribution.
 Recommended setting is either "LR" as it is less dependent on correct estimation of the standard errors. Keep in mind that "Chisq" is an asymptotic test, anf "F" is more appropiate for small sample tests. Howver "Chisq" holds under milder conditions and should be used if no small sample theory is available for the model.}
 
 \item{tracelevel}{the amount of information to be printed. Passed on to underlying routines. Defaults to 1 for printing, set to 0 for no printing.}
@@ -41,16 +41,22 @@ Either a dataframe of exogenous variables, or a vector containing the collumn na
 This function is a wrapper to the functions opt.ic(), opt.t() and opt.h().
 }
 \examples{
-data(ITdata)
-data(corinetable)
-#Grab a sample (optional).
-sample <- ITdata[getSamples(ITdata, share =.05),]
-# Reclassify 
-catITdata <- reclassify(sample, reclasstable = corinetable)
-# create a binary response dataset.
-Y <- MLtoBinomData(catITdata[,1], class =1)
-X <- catITdata[,-1]
-bestm <- generalizeToSpecific(model ="lm", Y, X)
-notabadm <- generalizeToSpecific(model ="lm", Y, X, "opt.t")
+randomlogit <- simulateLogit(nobs=8000, pars = c(0.5, -0.4, -0.3, 0.1, 0.05, 0.025, 0.01,
+                                                 0.005, 0.005, 0.005, 0.005, 0.005, 0.005,
+                                                 0.0025, 0.0025, 0.0025, 0.0025, 0.0, 0.0, 0.0))
+# add multicollinear vector, to see how the method responds to faulty variables.
+randomlogit<-cbind(randomlogit,mcv = randomlogit[,2])
+
+Y=randomlogit[,1]
+X=randomlogit[,-1]
+
+logit_ic <- generalizeToSpecific(model ="logit", Y, X)
+
+logit_t <- generalizeToSpecific(model ="logit", Y, X, "opt.t")
+
+logit_h <- generalizeToSpecific(model ="logit", Y, X, "opt.h")
+
+probit_ic <- generalizeToSpecific(model ="probit", Y, X)
+linear_ic <- generalizeToSpecific(model ="probit", Y, X)
 }
 

@@ -3,8 +3,8 @@
 \docType{data}
 \name{ITdata}
 \alias{ITdata}
-\title{A small sample dataset produced with \code{\link{getSamples}} with 157550 obersvations of 100x100 meter resolution Corine land cover data for Italy with various exogenous variables.}
-\format{a data frame with 157550 rows and 27 columns}
+\title{A sample dataset produced with \code{\link{getSamples}} with 157481 obersvations representing 100x100 meter resolution grid cells of Corine land cover data for Italy with 26 exogenous variables. Variable names starting with a "w" indicate spatial lags.}
+\format{a data frame with 157481 rows and 27 columns}
 \usage{
 data(ITdata)
 }

@@ -4,11 +4,12 @@
 \alias{opt.glm}
 \title{Core function used by autoGLM, for details and usage see autoGLM.}
 \usage{
-opt.glm(data, reclasstable, class, outputpath, modelname, tracelevel = 1,
-  actions = c("write", "print", "log", "return"), NAval = -9999,
+opt.glm(data, reclasstable = "default", class = 1,
+  outputpath = paste(getwd(), "//", sep = ""), modelname = "autoGLM",
+  tracelevel = 1, actions = c("print", "return"), NAval = -9999,
   model = "logit", preselect = "lm", method = "opt.ic", crit.t = 1.64,
-  crit.p = 0.1, test = "LR", KLIC = "AICc", accuracytolerance = 0.01,
-  confidence.alternative = 0.9, use.share = 0.25, maxsampleruns = 100,
+  crit.p = 0.1, test = "LR", KLIC = "AICc", accuracytolerance = 0.025,
+  confidence.alternative = 0.85, use.share = 0.25, maxsampleruns = 50,
   memorymanagement = TRUE)
 }
 \arguments{
@@ -57,5 +58,9 @@ a model object.
 }
 \description{
 Core function used by autoGLM, for details and usage see autoGLM.
+}
+\examples{
+randomlogit <- simulateLogit(nobs=5000, pars = c(0.5, -0.4, -0.3, 0.1, 0, 0, 0, 0, 0, 0))
+opt.glm(randomlogit, outputpath="C:\\\\users\\\\")
 }
 

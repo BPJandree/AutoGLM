@@ -17,7 +17,7 @@ This function returns a dataframe with variable names, their minimum and maximum
 }
 \examples{
 someVector = 1:10
-print(describe(someVector))
+describe(someVector)
 
 df <- data(ITdata)
 description <- describe(df)

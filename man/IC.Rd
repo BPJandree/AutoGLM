@@ -11,8 +11,8 @@ IC(model, KLIC = "AICc", sigma.is.estimated = FALSE)
 
 \item{KLIC}{either "AIC" for the AIC, or "AICc" for the corrected criterion. defaults to "AICc".}
 
-\item{sigma.is.estimated}{boolean indicating whether variance has been estimated as part of the parameters (Likelihood), or not (LS), If FALSE, number of parameters is increased by 1. Defaults to FALSE. 
-Should not impact the results when models of the same type are compared, but the option has been added to allow users to change the number of counted parameters when comparing ML objects wit hLS objects.}
+\item{sigma.is.estimated}{boolean indicating whether variance has been estimated as part of the parameters (Likelihood), or not (LS), If FALSE, number of parameters is increased by 1 for comparison with MLE objects. Defaults to FALSE.
+Should not impact the results when models of the same type are compared, but the option has been added to allow users to change the number of counted parameters when comparing MLE results with LS results.}
 }
 \value{
 numeric value.
@@ -22,12 +22,10 @@ This function returns a Kullback-Leibler Information Criterion.
 }
 \examples{
 somepars <- c(-0.5, 0.4, -0.3, 0.2, -0.1, 0, 0, 0)
-someData <- simulateLogit(nobs=2500, nxregs=8, pars=somepars) 
-someModel <- lm(formula(someData), data = someData)
-IC(someModel)
-# this uses k+1 parameters to make it comparable to an MLE object
-IC(someModel, KLIC="AIC", sigma.is.estimated = FALSE) 
-# this calculates with k parameters
-IC(someModel, KLIC="AIC", sigma.is.estimated = TRUE) 
+someData <- simulateLogit(nobs=2500, pars=somepars)
+someModel <- logit(someData)
+IC(someModel, KLIC="AIC")
+AIC(someModel) # compare
+IC(someModel) # AICc
 }
 

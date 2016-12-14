@@ -15,4 +15,8 @@ A binary vector indicating occurrences.
 \description{
 Miscelaneous function used in main routines.
 }
+\examples{
+probabilities<-c(1:100)/100
+occurrences<-PtoBin(probabilities)
+}
 

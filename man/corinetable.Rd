@@ -3,7 +3,7 @@
 \docType{data}
 \name{corinetable}
 \alias{corinetable}
-\title{A reclassification table for Corine land cover to simplified land cover used under the LUISA platform of the JRC.}
+\title{A reclassification table for Corine land cover to a simplified aggregation used in the LUISA platform of the JRC.}
 \usage{
 data(corinetable)
 }

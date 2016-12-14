@@ -2,51 +2,63 @@
 % Please edit documentation in R/autoGLM.R
 \name{reclassify}
 \alias{reclassify}
-\title{A function for reclassification of factorial data.}
+\title{A function for reclassification of integer data.}
 \usage{
 reclassify(LUdata, reclasstable = "default", JIT = TRUE, dropNA = TRUE,
   NAval = "default")
 }
 \arguments{
-\item{LUdata}{A dataset (vector, matrix or dataframe) that contains data to be reclassified, e.g., CORINE land cover data. If an object with multiple collumns is supplied, the function will attempt to reclassify the first collumn.}
+\item{LUdata}{A dataset (vector, matrix or dataframe) that contains data to be reclassified, e.g., CORINE land cover data. If an object with multiple collumns is supplied, the function will reclassify only the first collumn.}
 
-\item{reclasstable}{the path to a csv file containing the reclass table. 
-By default, the function loads "CORINE_LUISA_codes", supplied with the package. This table maps Corine land-cover into the Classification scheme used in the LUISA framework of the Joint European Research centre. 
-To inspect the table: data(CORINE_LUISA_codes).}
+\item{reclasstable}{the path to a .csv file containing the reclass table.
+By default, the function loads "corinetable", supplied with the package. This table maps Corine land-cover into the Classification scheme used in the LUISA framework of the Joint European Research centre.
+To inspect the table: data(corinetable); describe(corinetable).}
 
-\item{JIT}{a boolean indicating whether Just in Time compilation should be used. Can improve speed in very large datasets. Defaults to TRUE.}
+\item{JIT}{a boolean indicating whether Just in Time compilation should be used. Defaults to TRUE.}
 
-\item{dropNA}{TRUE/FALSE indicating whether values that are recoded into nodata should be dropped. By default TRUE.}
+\item{dropNA}{TRUE/FALSE indicating whether values that are reclassified into NoData should be dropped from the output. By default TRUE.}
 
-\item{NAval}{the value in the reclasstable that corresponds to nodata. By default the function assumes that the classes have positive values.
-it assumes that the lowest negative value corresponds to the class that should be dropped (e.g., if your relcass table maps 1,2,3 into 1,2,-9999, the function will return a dataset with classes 1,2.). 
-If your classification scheme maps into negative values and the lowest value does not correspond to the class that should be ommitted in the output, specify NAval if dropNA = TRUE, or the output will miss one class.}
+\item{NAval}{the value in the reclasstable that corresponds to noData. By default the function assumes that the classes have positive values, and that
+that the lowest negative value corresponds to the class that should be dropped (e.g., if your relcass table maps 1,2,3 into 1,2,-9999, the function will return a dataset with classes 1,2., and treat 3 as NoData, dropping it unless specified to keep NoData in the output).}
 }
 \value{
-A vector of reclassified values.
+A vector of reclassified values, or matrix with the firs column being reclassified.
 }
 \description{
-This function works similar to ArcMaps raster reclassify function, only fast and without starting hell on earth. If you need more speed contact the creator of the package. I could implement a parallel job.
+This function works similar to ArcMap's raster reclassify function, only fast and without starting hell on earth.
 }
 \examples{
-trainSample <- data(ITdata)
-reclasstable <- data(corinetable)
-# reclassify a vector of land-use data:
-landcover <- reclassify(LUdata=trainSample[,1], reclasstable, JIT=TRUE)
+
+A=c(1,2,3,4,5,6,7,8,9)
+B=c(9,8,7,6,5,4,3,2,1)
+reclasstable=cbind(A,B)
+
+reclassify(A, reclasstable)
+# by default, the data is not reclassified
+reclassify(A)
+
+# however, if dropNA is TRUE, thge default NA value is dropped (the most negative value)
+C = c(1,2,3,4,5,6,7,8,9,-9999)
+reclassify(C)
+
+
+
+data(ITdata)
+data(corinetable)
+
+
+# reclassify a vector of land-use data using the corine_to_LUISA scheme:
+landcover <- reclassify(LUdata=ITdata[,1], reclasstable=corinetable, JIT=TRUE)
 
 #reclassify a multi-collumn dataset in which the first collumn represents factorial data:
-reclass_IT <- reclassify(LUdata=trainSample, reclasstable, JIT=TRUE)
+reclass_IT <- reclassify(LUdata=ITdata, reclasstable=corinetable, JIT=TRUE)
 
-# the corine_to_LUISA codes are loaded by default, so if you wish to reclassify corine land cover to LUISA data this works too:
-reclass_IT <- reclassify(LUdata=trainSample)
 
-# the LUISA codes are a simplification and drop certain land cover classes. By default, the categories reclassified into the lowest negative values, are dropped.
+
+# the LUISA codes are a simplification and drop certain land cover classes. By default,
+# the categories reclassified into the lowest negative values, are dropped.
 # If you wish to keep all categories:
-reclass_IT <- reclassify(LUdata=trainSample, reclasstable, JIT=TRUE, dropNA=FALSE)
+reclass_IT <- reclassify(LUdata=ITdata, reclasstable=corinetable, dropNA=FALSE)
 
-# or if the value that represents NoData is a positive integer, say 9999, and you wish to drop it:
-drop9999table <-reclasstable
-drop9999table[drop9999table=-9999]<-9999
-reclass_IT <- reclassify(LUdata=trainSample, reclasstable=drop9999table, JIT=TRUE, dropNA=TRUE, NAval = 9999)
 }
 

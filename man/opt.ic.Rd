@@ -4,7 +4,8 @@
 \alias{opt.ic}
 \title{Optimization routine based on information criteria.}
 \usage{
-opt.ic(model, Y, X, KLIC, returntype, tracelevel, memorymanagement)
+opt.ic(model, Y, X, KLIC = "AICc", returntype = "model", tracelevel = 0,
+  memorymanagement = FALSE)
 }
 \arguments{
 \item{model}{The model to be optimized. Supports "lm" for the linear probability model, "logit" for the logistic probability model, and "probit" for the probit model.}
@@ -25,9 +26,13 @@ opt.ic(model, Y, X, KLIC, returntype, tracelevel, memorymanagement)
 "model", "data", or "colnames", to be specified in returnype.
 }
 \description{
-This function searches
+This function optimizes a model using information critera as a decision rule. This solves many of the problems related to model selection based on hypothesis tests, see also \code{\link{opt.h}}.
+In finite samples, the AIC is known to favor large models. The corrected AIC is a slightly stricter measure.
 }
 \examples{
-opt.ic(model, Y, X, KLIC, returntype, tracelevel, memorymanagement)
+randomlogit <- simulateLogit(nobs=500, pars = c(0.5, -0.4, -0.3, 0.1, 0.05, 0.025, 0, 0, 0, 0))
+Y=randomlogit[,1]
+X=randomlogit[,-1]
+opt.ic(model="lm", Y, X)
 }
 
