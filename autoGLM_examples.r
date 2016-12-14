@@ -106,7 +106,10 @@ landusevec <- c(0,1,2,3,4,5,6,16)
 # If you want to restore the objects of all the results, you can specify  returnall="writedisk" to
 # write your estimation objects as serialized images to your outputpath. See the manual for more detail.
 #### Be sure to delete them afterwards if you do not wish to keep them. They can be large in size.
-calibration <- autoGLM(data=ITdata, reclasstable=corinetable, class=landusevec, outputpath=weightsfilepath)
+returnall="writedisk"
+actions=c("write", "print", "log", "return")
+calibration <- autoGLM(data=ITdata, reclasstable=corinetable, class=landusevec, 
+		       outputpath=weightsfilepath, returnall=FALSE, actions = c("print", " return")) # <- defaults
 
 
 # to see some of the core functions in action:
