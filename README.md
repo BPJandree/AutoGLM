@@ -1,5 +1,5 @@
 # AutoGLM
-This is an R package for automated GLM modelling suitable for large datasets. Updated version is on it's way.
+This is an R package for automated GLM modelling suitable for large datasets. The package resulted from the needs for automated procedures for the statistical calibration of the [LUISA model framework](https://ec.europa.eu/jrc/en/luisa) that is widely adopted by the European Commision for ex-ante evaluation of policies. Updated version is on it's way.
 
 # Next Release
 Version 1.0.1 is scheduled for release around 14 December. Together with the update, improved example code and a more elaborate vignette will be provided.
