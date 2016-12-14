@@ -4,7 +4,7 @@ This is an R package for automated GLM modelling suitable for large datasets. Th
 # Next Release
 Version 1.0.1 is scheduled for release around 14 December. Together with the update, improved example code and a more elaborate vignette will be provided. 
 
-I have moved the files and it seems that everything is in order. I will test a few things to be sure everything went smooth, and proceed with updating this page and finishing the release notes.
+UPDATE: I have moved the files and it seems that everything is in order. I will test a few things to be sure everything went smooth, and proceed with updating this page and finishing the release notes.
 
 # Known bugs (Will be fixed with next update!)
 This package is still in alpha, you can contact me if you encounter problems. Some bugs are already known.
