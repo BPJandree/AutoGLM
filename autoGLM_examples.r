@@ -80,13 +80,13 @@ describe(ITdata)
 # There are multiple options that you can specify, but most have a default.
 
 # default settings, no log file, no writing of a weightsfile
-results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=weightsfilepath)
+results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0)
 # log file and a weightsfile
 results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=weightsfilepath, actions =c("write", "log", "return", "print"))
 # optimize with t-tests
-results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=weightsfilepath, method ="opt.t") # quasi-comple separability
+results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, method ="opt.t") # quasi-comple separability
 # optimize with hypothesis testing
-results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, outputpath=weightsfilepath, method ="opt.h")
+results <- autoGLM(data=ITdata, reclasstable=corinetable, class=0, method ="opt.h")
 
 
 
