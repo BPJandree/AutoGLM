@@ -21,7 +21,7 @@ Release contains several crucial updates:
 - Several fixes in the reclassification function.
 - Moved most of the miscellaneous functions inside routines that use them to get a cleaner manual.
 - simulateLogit now simulates from the correctly specified logit model.
-- Several minor bugg fixes.
+- Several minor bug fixes.
 
 
 # Next Release
