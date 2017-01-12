@@ -9,13 +9,12 @@ Current version is 1.0.1. Reinstall if you're still on v.1.0.0.
 Release contains several crucial updates:
 - Solved an issue with op.t in autoGLM().
 - Solved important issues in the opt.h routine. Added a functionality for both single and joint tests.
-- Changed wd() as defaultoath to getwd().
-- Fixed the warning message: In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used. 
+- Changed wd() as default path to getwd().
+- Fixed the warning message: "In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used". 
 - The ITdata set has been edited. Several missing values coded with integers have been removed.
 - Fixed issues with actions=c(...). 
 - Added additional functionality for straightforward estimation of logit models and integrated the gmm logits within this general command.
 - guessStartVal gmm functionality added, robustified the routines.
-- Removed several missing values observations from the default dataset.
 - Renamed getCall() to getCall2() to avoid namespace issues with the stats package.
 - Updated the example codes.
 - Several fixes in the reclassification function.
