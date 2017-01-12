@@ -2,18 +2,25 @@
 This is an R package for automated GLM modelling suitable for large datasets. The package resulted from the needs for automated procedures for the statistical calibration of the [LUISA model framework](https://ec.europa.eu/jrc/en/luisa) that is widely adopted by the European Commision for ex-ante evaluation of policies. Updated version is on it's way.
 
 # Current Version
-Current version is 1.0.1. Reinstallm if you're still on v.1.0.0.
+Current version is 1.0.1. Reinstall if you're still on v.1.0.0.
 
 # Release Note for v1.0.1.
-IMPORTANT: This list is not finished.
 
-Release constains several crucial updates:
-- Solved an issue with op.t in autoGLM()
+Release contains several crucial updates:
+- Solved an issue with op.t in autoGLM().
 - Solved important issues in the opt.h routine. Added a functionality for both single and joint tests.
 - Changed wd() as defaultoath to getwd().
 - Fixed the warning message: In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used. 
 - The ITdata set has been edited. Several missing values coded with integers have been removed.
-- Fixed issues when not specifying all actions Not specifying all actions will result in an error, though everything works properly. I will look in to this, for now I recommend to always use actions=c("write", "print", "log", "return"). (Status: on to-do list for next update)- guessStartVal gmm options need re-evaluation. (Status: on to-do list for next update)- the default in some functions iw wd(), where it should be getwd(). (Status: Fixed in next update)
+- Fixed issues with actions=c(...). 
+- added additional functionality for straightforward estimation of logit models and integrated the gmm logits within this general command.
+- guessStartVal gmm functionality added, robustified the routines.
+- Removed several missing values observations from the default dataset.
+- Renamed getCall() to getCall2() to avoid namespace issues with the stats package.
+- Updated the example codes.
+- Several fixes in the reclassification function.
+- Moved most of the miscellaneous functions inside routines that use them to get a cleaner manual.
+- Several minor bugg fixes.
 
 # Next Release
 Provide me with feedback!
