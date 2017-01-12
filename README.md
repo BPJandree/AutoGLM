@@ -13,7 +13,7 @@ Release contains several crucial updates:
 - Fixed the warning message: In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used. 
 - The ITdata set has been edited. Several missing values coded with integers have been removed.
 - Fixed issues with actions=c(...). 
-- added additional functionality for straightforward estimation of logit models and integrated the gmm logits within this general command.
+- Added additional functionality for straightforward estimation of logit models and integrated the gmm logits within this general command.
 - guessStartVal gmm functionality added, robustified the routines.
 - Removed several missing values observations from the default dataset.
 - Renamed getCall() to getCall2() to avoid namespace issues with the stats package.
