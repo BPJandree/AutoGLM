@@ -13,16 +13,21 @@ Release contains several crucial updates:
 - Fixed the warning message: "In if (reclasstable == "default") { :the condition has length > 1 and only the first element will be used". 
 - The ITdata set has been edited. Several missing values coded with integers have been removed.
 - Fixed issues with actions=c(...). 
-- Added additional functionality for straightforward estimation of logit models and integrated the gmm logits within this general command.
+- Added additional functionality for straightforward estimation of logit models using logit(), and integrated the gmm logits within this general command through the option logit(..., method ="gmm").
+- gmm estimation through logit() now supports both identity and inverse covariance weighting, and supports a two-step, continously-updated and iteratively-updated estimation methods.
 - guessStartVal gmm functionality added, robustified the routines.
 - Renamed getCall() to getCall2() to avoid namespace issues with the stats package.
 - Updated the example codes.
 - Several fixes in the reclassification function.
 - Moved most of the miscellaneous functions inside routines that use them to get a cleaner manual.
+- simulateLogit now simulates from the correctly specified logit model.
 - Several minor bugg fixes.
 
+
 # Next Release
-Provide me with feedback!
+Provide me with feedback! 
+
+- Update of the manual.
 
 # Known bugs (Will be fixed with next update!)
 Provide me with feedback!
