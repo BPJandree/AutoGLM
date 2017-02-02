@@ -28,6 +28,7 @@ Release contains several crucial updates:
 Provide me with feedback! 
 
 - Update of the manual.
+- Edit exportsweightsfile to aligh with geoDMS format
 
 # Known bugs (Will be fixed with next update!)
 Provide me with feedback!
