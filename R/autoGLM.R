@@ -494,8 +494,8 @@ exportWeightsfile <- function (model, originaldata, modeldata, coefnamelist, out
 			zero = droppedvars
 			params[usedvars] <- estimated
 			params[droppedvars] <- 0
-			coefnamelist[1]<-"Constant"
-			names(params) <- coefnamelist
+			#coefnamelist[1]<-"Constant"
+			names(params) <- c("Constant",coefnamelist)
 
 			header = paste("ZoneName;",toString(names(params)))
 			content = paste(paste(modelname, ";",sep=""), toString(as.character(params)))
