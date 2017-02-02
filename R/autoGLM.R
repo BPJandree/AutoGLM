@@ -500,6 +500,7 @@ exportWeightsfile <- function (model, originaldata, modeldata, coefnamelist, out
 			header = paste("ZoneName;",toString(names(params)))
 			content = paste(paste(modelname, ";",sep=""), toString(as.character(params)))
 
+			header <- gsub(",", ";", header)
 			content <- gsub(",", ";", content)
 
 			fileConn<-file(paste(outdir,filename, sep=""))
