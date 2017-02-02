@@ -2,9 +2,14 @@
 This is an R package for automated GLM modelling suitable for large datasets. The package resulted from the needs for automated procedures for the statistical calibration of the [LUISA model framework](https://ec.europa.eu/jrc/en/luisa) that is widely adopted by the European Commision for ex-ante evaluation of policies. Feel free to use it in your own work and contact me with questions.
 
 # Current Version
-Current version is 1.0.1. Reinstall if you're still on v.1.0.0.
+Current version is v.1.0.1b. Reinstall if you're still on v.1.0.0 by executing:
 
-# Release Note for v1.0.1.
+	library(devtools)
+	install_github("BPJandree/AutoGLM")
+
+v.1.0.1b contains a quick fix in the write weightsfile function used for geoDMS users. Fix is untested but updating to 1.0.1b will not have any effect on other routines,
+
+# Release Note for v.1.0.1.
 
 Release contains several crucial updates:
 - Solved an issue with op.t in autoGLM().
@@ -28,7 +33,7 @@ Release contains several crucial updates:
 Provide me with feedback! 
 
 - Update of the manual.
-- Edit exportsweightsfile to aligh with geoDMS format
+- Edit exportsweightsfile to aligh with geoDMS format (untested patch in v.1.0.1b)
 
 # Known bugs (Will be fixed with next update!)
 Provide me with feedback!
