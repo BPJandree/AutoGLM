@@ -7,7 +7,7 @@ Current version is v.1.0.1b. Reinstall if you're still on v.1.0.0 by executing:
 	library(devtools)
 	install_github("BPJandree/AutoGLM")
 
-v.1.0.1b contains a quick fix in the write weightsfile function used for geoDMS users. Fix is untested but updating to 1.0.1b will not have any effect on other routines,
+v.1.0.1b contains a quick fix in the write weightsfile function used for geoDMS users. Fix is untested but updating to 1.0.1b will not have any effect on other routines.
 
 # Release Note for v.1.0.1.
 
