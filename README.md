@@ -7,7 +7,8 @@ Current version is v.1.0.1b. Reinstall if you're still on v.1.0.0 by executing:
 	library(devtools)
 	install_github("BPJandree/AutoGLM")
 
-v.1.0.1b contains a quick fix in the write weightsfile function used for geoDMS users. Fix is untested but updating to 1.0.1b will not have any effect on other routines.
+# Release Note for v.1.0.1.b
+Edited exportsweightsfile to aligh with geoDMS format. Updating to 1.0.1b will not have any effect on other routines.
 
 # Release Note for v.1.0.1.
 
@@ -33,7 +34,7 @@ Release contains several crucial updates:
 Provide me with feedback! 
 
 - Update of the manual.
-- Edit exportsweightsfile to aligh with geoDMS format (untested patch in v.1.0.1b)
+- logit() excepts only a dataframe, will allow for matrix objects to be supplied.
 
 # Known bugs (Will be fixed with next update!)
 Provide me with feedback!
