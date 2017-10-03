@@ -32,7 +32,7 @@ NULL
 NULL
 
 
-#' An function to load and install packages.
+#' A function to load and install packages.
 #'
 #' This function checks if a package is installed before loading it, and pulls it from the nearest CRAN server if the package is missing.
 #' @param package Character string indicating th package to be loaded. Accepts a vector of packages to load multiple packages.
