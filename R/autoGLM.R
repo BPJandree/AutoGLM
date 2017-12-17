@@ -278,65 +278,80 @@ logit <- function (Z, method="IWLS", start="default", maximizer="nlminb", wmatri
 #' reclass_IT <- reclassify(LUdata=ITdata, reclasstable=corinetable, dropNA=FALSE)
 #'
 
+reclassify <- function (LUdata, reclasstable = "default", JIT = TRUE, dropNA = TRUE, 
+    NAval = "default") 
+{
+    if(identical(reclasstable), "default"){
+    	message("defaulted to no reclassification, input returned")
+    	return(LUdata)
+    } else{
 
-reclassify <- function(LUdata, reclasstable="default", JIT=TRUE, dropNA = TRUE, NAval="default"){
 
-  if(length((dim(LUdata)))>1){
-    LUvec = LUdata[,1]
-    if (is.character(reclasstable)){
-      reclasstable <- cbind(LUdata[,1],LUdata[,1])
-    }
-  } else {LUvec = LUdata
-  if (is.character(reclasstable)){
-    reclasstable <- cbind(LUdata,LUdata)
-  }
-  }
-
-  if(dropNA){
-    NAval = min(reclasstable[,2],-1)
-  }
-
-  maxval = max(LUvec)+1
-  if (JIT == TRUE) {
-    pkgTest("compiler", silent = TRUE)
-    fast <- function (LUvec, reclasstable) {
-      LU <- sort(unique(LUvec))
-
-      for (lu in LU){
-        LUvec[LUvec==lu] <- as.numeric(reclasstable[reclasstable[,1]==lu,][2])*maxval
-      }
-      return(LUvec)
-    }
-
-    fast.reclassify <- cmpfun(fast)
-    LUvec <- fast(LUvec, reclasstable)
-  } else {
-    LU <- sort(unique(LUvec))
-
-    for (lu in LU){
-      LUvec[LUvec==lu] <- as.numeric(reclasstable[reclasstable[,1]==lu,][2])*maxval
-    }
-  }
-  LUvec = LUvec/maxval
-
-  if(length(dim(LUdata))>1){
-    LUdata[,1]<- LUvec
-    if(dropNA){
-      return( if(NAval%in%LUdata[,1]){LUdata[LUdata[,1]!=NAval,]}else{LUdata} )
-    } else {
-      return(LUdata)
-    }
-  } else {
-    LUdata<- LUvec
-    if(dropNA){
-      return( if(NAval%in%LUdata){LUdata[LUdata!=NAval]}else{LUdata} )#(LUdata[LUdata!=NAval,])
-    } else {
-      return(LUdata)
-    }
-  }
+	    if (length((dim(LUdata))) > 1) {
+	        LUvec = LUdata[, 1]
+	        if (is.character(reclasstable)) {
+	            reclasstable <- cbind(LUdata[, 1], LUdata[, 1])
+	        }
+	    }
+	    else {
+	        LUvec = LUdata
+	        if (is.character(reclasstable)) {
+	            reclasstable <- cbind(LUdata, LUdata)
+	        }
+	    }
+	    if (dropNA) {
+	        NAval = min(reclasstable[, 2], -1)
+	    }
+	    maxval = max(LUvec) + 1
+	    if (JIT == TRUE) {
+	        pkgTest("compiler", silent = TRUE)
+	        fast <- function(LUvec, reclasstable) {
+	            LU <- sort(unique(LUvec))
+	            for (lu in LU) {
+	                LUvec[LUvec == lu] <- as.numeric(reclasstable[reclasstable[, 
+	                  1] == lu, ][2]) * maxval
+	            }
+	            return(LUvec)
+	        }
+	        fast.reclassify <- cmpfun(fast)
+	        LUvec <- fast(LUvec, reclasstable)
+	    }
+	    else {
+	        LU <- sort(unique(LUvec))
+	        for (lu in LU) {
+	            LUvec[LUvec == lu] <- as.numeric(reclasstable[reclasstable[, 
+	                1] == lu, ][2]) * maxval
+	        }
+	    }
+	    LUvec = LUvec/maxval
+	    if (length(dim(LUdata)) > 1) {
+	        LUdata[, 1] <- LUvec
+	        if (dropNA) {
+	            return(if (NAval %in% LUdata[, 1]) {
+	                LUdata[LUdata[, 1] != NAval, ]
+	            } else {
+	                LUdata
+	            })
+	        }
+	        else {
+	            return(LUdata)
+	        }
+	    }
+	    else {
+	        LUdata <- LUvec
+	        if (dropNA) {
+	            return(if (NAval %in% LUdata) {
+	                LUdata[LUdata != NAval]
+	            } else {
+	                LUdata
+	            })
+	        }
+	        else {
+	            return(LUdata)
+	        }
+	    }
+	}
 }
-
-
 
 
 #' A simple function to describe a dataset.
