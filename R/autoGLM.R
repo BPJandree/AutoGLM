@@ -281,7 +281,7 @@ logit <- function (Z, method="IWLS", start="default", maximizer="nlminb", wmatri
 reclassify <- function (LUdata, reclasstable = "default", JIT = TRUE, dropNA = TRUE, 
     NAval = "default") 
 {
-    if(identical(reclasstable), "default"){
+    if(identical(reclasstable, "default")){
     	message("defaulted to no reclassification, input returned")
     	return(LUdata)
     } else{
@@ -352,6 +352,7 @@ reclassify <- function (LUdata, reclasstable = "default", JIT = TRUE, dropNA = T
 	    }
 	}
 }
+
 
 
 #' A simple function to describe a dataset.
