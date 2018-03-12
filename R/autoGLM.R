@@ -543,7 +543,7 @@ exportWeightsfile <- function (model, originaldata, modeldata, coefnamelist, out
 #' getSamples (data = ITdata, share = 0.025, confidence.alternative=0.90, max.iter =100)
 
 
-getSamples <- function (data, share = .25, confidence.alternative=.90,
+getSamples <- function (data, share = .5, confidence.alternative=.90,
                         max.iter=50, tracelevel=1, memorymanagement = TRUE) {
   resample = TRUE
   iter = 0
@@ -676,7 +676,7 @@ logistic <- function (theta, data){
 
 
 
-guessStartVal <- function (Y, X, model="logit", s1=.25, s2=s1, c1=.85, c2=c1, tracelevel =1, memorymanagement = TRUE){
+guessStartVal <- function (Y, X, model="logit", s1=.5, s2=s1, c1=.85, c2=c1, tracelevel =1, memorymanagement = TRUE){
   guessStartVal1 <- function (Y, X, model, tracelevel, memorymanagement) {
     if (tracelevel > 0){
       message("Sampling from data")
