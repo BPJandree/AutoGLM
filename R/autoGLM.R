@@ -54,10 +54,10 @@ pkgTest <- function (package, silent=FALSE){
 		timeout=60
 		pkgTest2 <- function(package)
 		  {
-		    if (!require(package,character.only = TRUE))
+		    if (!suppressWarnings(require(package,character.only = TRUE)))
 		    {
 		      install.packages(package,dep=TRUE,repos='http://cloud.r-project.org/')
-		        if(!require(package,character.only = TRUE)) stop("Package not found")
+		      	if(!require(package,character.only = TRUE)) stop("Package not found.")
 		    }
 		  }
 		 if(silent){
@@ -70,6 +70,7 @@ pkgTest <- function (package, silent=FALSE){
 		if (silent){suppressPackageStartupMessages(f())} else {f()}
 		}
 
+
 		if (silent == FALSE){
 			pload <- function(package){
 				pkgTest3(package, silent = FALSE)
@@ -80,8 +81,9 @@ pkgTest <- function (package, silent=FALSE){
 			}
 		}
 
-	loadobject <- lapply(package, pload)
-	rm(loadobject)
+	for(p in package){
+		pload(p)
+	}
 }
 
 
