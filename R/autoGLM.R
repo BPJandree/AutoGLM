@@ -65,7 +65,7 @@ pkgTest <- function (package, silent=FALSE){
 		} else {
 			pkgTest2("R.utils")
 		}
-		f <- function (){tryCatch(evalWithTimeout(pkgTest2(package), timeout=timeout,
+		f <- function (){tryCatch(R.utils::withTimeout(pkgTest2(package), timeout=timeout,
 	  		onTimeout=c("error")), error = function(e) {stop("Package loading got stuck.")})}
 		if (silent){suppressPackageStartupMessages(f())} else {f()}
 		}
